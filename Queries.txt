@@ -1,0 +1,39 @@
+/*Query1-Top 5 Countries with Purchases*/
+SELECT Country,
+SUM(i.total) AS TOTAL_AMOUNT
+FROM Customer C
+JOIN invoice i
+ON C.CustomerId = i.CustomerId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
+/*Query2-Top 10 Rock Artists*/
+SELECT a.name,
+COUNT(t.Name) AS Songs
+FROM Artist a
+JOIN Album b
+ON a.ArtistId = b.ArtistId
+JOIN Track t
+ON b.AlbumId = t.AlbumId
+JOIN Genre g
+ON t.GenreId = g.GenreId
+WHERE G.name = 'Rock'
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+/*Query3-Who served the highest No. of Customers?*/
+SELECT e.FirstName|| ' , ' ||e.LastName AS Support_agent,
+COUNT(c.SupportRepId )AS customers_per_agent
+FROM customer c
+JOIN employee e
+ON c.SupportRepId=e.EmployeeId
+GROUP by 1;
+/*Query4-Most used Media Type format*/
+SELECT t.MediaTypeId,
+m.Name,
+COUNT(t.trackid)as Total
+FROM track t
+INNER JOIN MediaType m
+ON m.MediaTypeId=t.MediaTypeId
+GROUP BY 1,2
+ORDER BY 3  ;
